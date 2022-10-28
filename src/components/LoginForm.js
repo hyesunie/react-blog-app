@@ -1,5 +1,7 @@
 import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../modules/user";
 import Auth from "./templates/AuthTemplate";
 
 function LoginForm() {
@@ -17,6 +19,7 @@ function LoginForm() {
   }, []);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     async (e) => {
@@ -33,6 +36,7 @@ function LoginForm() {
       if (user.password === password) {
         setError("");
         //todo: 로그인 됐다는 상태를 DISPATCH 해야 함
+        dispatch(login({ id }));
         return navigate("/");
       }
       setError("ID, PASSWORD를 확인하세요.");
