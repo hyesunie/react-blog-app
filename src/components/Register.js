@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "./templates/AuthTemplate";
+import GlobalStyle from "./templates/GlobalTemplate";
 
 function Register() {
   const [id, setId] = useState("");
@@ -77,38 +78,46 @@ function Register() {
   }, [id, password]);
 
   return (
-    <Auth.Section>
-      <p style={{ fontWeight: "600", fontSize: "2em", paddingTop: "2em" }}>
-        Register
-      </p>
-      <Auth.Form onSubmit={onSubmit}>
-        <Auth.Input onChange={onChnage} id="id" type="text" placeholder="ID" />
-        <Auth.Input
-          onChange={onChnage}
-          id="password1"
-          type="password"
-          placeholder="PASSWORD"
-        />
-        <Auth.Input
-          onChange={onChnage}
-          id="password2"
-          type="password"
-          placeholder="CHECK PASSWORD"
-        />
-        <Auth.Button type="submit">회원가입</Auth.Button>
-      </Auth.Form>{" "}
-      <div
-        style={{
-          fontWeight: "600",
-          fontSize: "1em",
-          marginBottom: "0.5em",
-          color: "red",
-        }}
-      >
-        {error !== "" ? error : ""}
-      </div>
-      <Link to="/login">로그인</Link>
-    </Auth.Section>
+    <>
+      <GlobalStyle />
+      <Auth.Section>
+        <p style={{ fontWeight: "600", fontSize: "2em", paddingTop: "2em" }}>
+          Register
+        </p>
+        <Auth.Form onSubmit={onSubmit}>
+          <Auth.Input
+            onChange={onChnage}
+            id="id"
+            type="text"
+            placeholder="ID"
+          />
+          <Auth.Input
+            onChange={onChnage}
+            id="password1"
+            type="password"
+            placeholder="PASSWORD"
+          />
+          <Auth.Input
+            onChange={onChnage}
+            id="password2"
+            type="password"
+            placeholder="CHECK PASSWORD"
+          />
+          <Auth.Button type="submit">회원가입</Auth.Button>
+        </Auth.Form>{" "}
+        <div
+          style={{
+            fontWeight: "600",
+            fontSize: "1em",
+            marginBottom: "0.5em",
+            color: "red",
+          }}
+        >
+          {error !== "" ? error : ""}
+        </div>
+        <Link to="/login">로그인</Link>
+      </Auth.Section>
+    </>
   );
 }
 

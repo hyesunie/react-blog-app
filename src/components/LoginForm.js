@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../modules/user";
 import Auth from "./templates/AuthTemplate";
+import GlobalStyle from "./templates/GlobalTemplate";
 
 function LoginForm() {
   const [id, setId] = useState("");
@@ -61,32 +62,40 @@ function LoginForm() {
   );
 
   return (
-    <Auth.Section>
-      <p style={{ fontWeight: "600", fontSize: "2em", paddingTop: "2em" }}>
-        Login
-      </p>
-      <Auth.Form onSubmit={onSubmit}>
-        <Auth.Input id="id" type="text" placeholder="ID" onChange={onChange} />
-        <Auth.Input
-          id="password"
-          type="password"
-          placeholder="PASSWORD"
-          onChange={onChange}
-        />
-        <Auth.Button type="submit">로그인</Auth.Button>
-      </Auth.Form>
-      <div
-        style={{
-          fontWeight: "600",
-          fontSize: "1em",
-          marginBottom: "0.5em",
-          color: "red",
-        }}
-      >
-        {error !== "" ? error : ""}
-      </div>
-      <Link to="/register">회원가입</Link>
-    </Auth.Section>
+    <>
+      <GlobalStyle />
+      <Auth.Section>
+        <p style={{ fontWeight: "600", fontSize: "2em", paddingTop: "2em" }}>
+          Login
+        </p>
+        <Auth.Form onSubmit={onSubmit}>
+          <Auth.Input
+            id="id"
+            type="text"
+            placeholder="ID"
+            onChange={onChange}
+          />
+          <Auth.Input
+            id="password"
+            type="password"
+            placeholder="PASSWORD"
+            onChange={onChange}
+          />
+          <Auth.Button type="submit">로그인</Auth.Button>
+        </Auth.Form>
+        <div
+          style={{
+            fontWeight: "600",
+            fontSize: "1em",
+            marginBottom: "0.5em",
+            color: "red",
+          }}
+        >
+          {error !== "" ? error : ""}
+        </div>
+        <Link to="/register">회원가입</Link>
+      </Auth.Section>
+    </>
   );
 }
 

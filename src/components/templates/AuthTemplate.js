@@ -43,11 +43,11 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const Auth = {
+const AuthTemplate = {
   Section: StyledSection,
   Form: StyledLoginForm,
   Input: StyledInput,
   Button: StyledButton,
 };
 
-export default Auth;
+export default AuthTemplate;
