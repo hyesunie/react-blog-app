@@ -1,43 +1,101 @@
-import styled from "styled-components";
-const StyledLoginForm = styled.form`
-  width: 100%;
-  height: 60%;
-  background-color: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledInput = styled.input`
-  margin: 1em 0 1em 0;
-  padding: 1em;
-  width: 80%;
-  border-bottom: solid 0.2em #e0e0e0;
-  border-radius: 10px;
-  font-size: 1.1em;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-`;
-
-const StyledButton = styled.button`
-  width: 70%;
-  margin: 1em 0 1em 0;
-  font-size: 1.1em;
-  padding: 1em 0 1em 0;
-  font-weight: 600;
-  border-radius: 30px;
-  border: none;
-  background-color: #fffd7c;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-`;
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../modules/user";
+import Auth from "./templates/AuthTemplate";
+import GlobalStyle from "./templates/GlobalTemplate";
 
 function LoginForm() {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const getUserList = useCallback(async () => {
+    //TODO: 원래는 서버에서 해당 유저 정보에 대해서 확인 후 응답만 받으면 됨!!!
+    const response = await fetch(
+      "https://my-json-server.typicode.com/hyesunie/demo/users"
+    );
+    if (response.ok) {
+      return await response.json();
+    }
+  }, []);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      //TODO: 서버가 존재할때는 변경되어야 할 코드
+      const userList = await getUserList();
+      const user = userList.find((user) => user.id === id);
+
+      if (!user) {
+        setError("ID, PASSWORD를 확인하세요.");
+        return;
+      }
+
+      if (user.password === password) {
+        setError("");
+        //todo: 로그인 됐다는 상태를 DISPATCH 해야 함
+        dispatch(login({ id }));
+        return navigate("/");
+      }
+      setError("ID, PASSWORD를 확인하세요.");
+    },
+    [id, password]
+  );
+
+  const onChange = useCallback(
+    (e) => {
+      const { id: targetId, value: targetValue } = e.target;
+      if (targetId === "id") {
+        setId(targetValue);
+        return;
+      }
+
+      if (targetId === "password") {
+        setPassword(targetValue);
+        return;
+      }
+    },
+    [id, password]
+  );
+
   return (
-    <StyledLoginForm>
-      <StyledInput type="text" placeholder="ID" />
-      <StyledInput type="password" placeholder="PASSWORD" />
-      <StyledButton type="submit">로그인</StyledButton>
-    </StyledLoginForm>
+    <>
+      <GlobalStyle />
+      <Auth.Section>
+        <p style={{ fontWeight: "600", fontSize: "2em", paddingTop: "2em" }}>
+          Login
+        </p>
+        <Auth.Form onSubmit={onSubmit}>
+          <Auth.Input
+            id="id"
+            type="text"
+            placeholder="ID"
+            onChange={onChange}
+          />
+          <Auth.Input
+            id="password"
+            type="password"
+            placeholder="PASSWORD"
+            onChange={onChange}
+          />
+          <Auth.Button type="submit">로그인</Auth.Button>
+        </Auth.Form>
+        <div
+          style={{
+            fontWeight: "600",
+            fontSize: "1em",
+            marginBottom: "0.5em",
+            color: "red",
+          }}
+        >
+          {error !== "" ? error : ""}
+        </div>
+        <Link to="/register">회원가입</Link>
+      </Auth.Section>
+    </>
   );
 }
 
