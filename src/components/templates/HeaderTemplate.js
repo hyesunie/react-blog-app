@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   padding: 1em;
   align-items: center;
   width: 100%;
-  height: 10%;
+  height: 7%;
   border-bottom: solid 0.3em black;
 `;
 
@@ -26,7 +26,7 @@ const StyledUserInfo = styled.div`
 const StyledUserName = styled.div`
   width: fit-content;
   padding: 0.3em;
-  height: 100%;
+  height: fit-content;
   margin-right: 10%;
   font-weight: 600;
   white-space: nowrap;

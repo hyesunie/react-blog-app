@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Provider } from "react-redux";
 import store from "./modules/index";
+import WritePage, { writePageLoader } from "./pages/WritePage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/write",
+    element: <WritePage />,
   },
 ]);
 
