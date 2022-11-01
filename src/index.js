@@ -2,16 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import HomePage, { loader as homeLoader } from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Provider } from "react-redux";
 import store from "./modules/index";
-import WritePage, { writePageLoader } from "./pages/WritePage";
+import WritePage from "./pages/WritePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: homeLoader,
     element: <HomePage />,
   },
   {

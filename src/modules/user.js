@@ -15,5 +15,4 @@ const user = (state = { id: "", isLogin: false }, action) => {
   }
 };
 
-export { login, logout };
-export default user;
+export { login, logout, user as default };
