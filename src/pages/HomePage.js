@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import PostList from "../components/PostList";
 import { initPosts } from "../modules/posts";
 
 async function loader() {
@@ -26,9 +27,9 @@ function HomePage() {
     <>
       <Header />
       <Link to="/write">새로운 포스팅</Link>
+      <PostList />
     </>
   );
 }
 
-export { loader };
-export default HomePage;
+export { loader, HomePage as default };
